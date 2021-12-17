@@ -63,10 +63,47 @@ func printBoard() {
 	}
 }
 
+func checkBroad() {
+	//横向
+	for i := 0; i < 3; i++ {
+		if board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] != " " {
+			fmt.Printf("%v win!\n", board[i][0])
+			os.Exit(0)
+		}
+	}
+	//纵向
+	for i := 0; i < 3; i++ {
+		if board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[0][i] != " " {
+			fmt.Printf("%v win!\n", board[0][i])
+			os.Exit(0)
+		}
+	}
+	//斜向
+	if board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] != " " {
+		fmt.Printf("%v win!\n", board[0][0])
+		os.Exit(0)
+	}
+	if board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] != " " {
+		fmt.Printf("%v win!\n", board[0][2])
+		os.Exit(0)
+	}
+	//平局
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			if board[i][j] == " " {
+				return
+			}
+		}
+	}
+	fmt.Println("平局")
+	os.Exit(0)
+}
+
 func main() {
 	fmt.Println("Game start!")
 	for {
 		printBoard()
+		checkBroad()
 		playerInput()
 	}
 }
